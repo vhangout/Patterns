@@ -78,7 +78,7 @@ namespace ChatDecorator
         public string send(string msg)
         {
             string[] result = _chatComponent.send(msg).Split(':');
-            var s = result[0] + ":" + code(msg);
+            var s = result[0] + ":" + code(result[1]);
             Console.WriteLine(s + " =>");
             return s;
         }
