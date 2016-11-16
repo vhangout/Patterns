@@ -36,7 +36,7 @@ namespace ChainOfResponsibility
         private static ICurrencyHandler finalHandler = new InvalidHandler();
         private static Dictionary<int, ICurrencyHandler> amountHandlers = new Dictionary<int, ICurrencyHandler>();
 
-        public static void init()
+        static CurrencyFactory()
         {
             foreach (var amounts in config.Values)
                 foreach (var amount in amounts)

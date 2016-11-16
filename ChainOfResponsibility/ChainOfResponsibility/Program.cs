@@ -8,7 +8,6 @@ namespace ChainOfResponsibility
     {
         static void Main(string[] args)
         {
-            CurrencyFactory.init();
             foreach (CurrencyType type in Enum.GetValues(typeof(CurrencyType)))
             {
                 if (type > CurrencyType.Invalid)
