@@ -20,19 +20,27 @@ namespace ChainOfResponsibility
                 }
                 Console.WriteLine();
             }
-            var input = Console.ReadLine();
+            Console.WriteLine("Usage: 1100rub, 1100RUB, 1100 rub, RUB 1100" + Environment.NewLine);
             var stack = new Stack<string>();
-            var result = CurrencyFactory.FirstHandler.validate(input, stack);
-            if (result < 0)
-                Console.WriteLine("Incorrect amount");
-            else 
-            {   
-                Console.WriteLine("Result: ");
-                while (stack.Count > 0)
-                    Console.Write(stack.Pop() + " ");
-                Console.WriteLine();
-            }
-            Console.ReadKey();
+            ConsoleKeyInfo key;
+            do
+            {
+                stack.Clear();
+                Console.Write(">");
+                var input = Console.ReadLine();
+                var result = CurrencyFactory.FirstHandler.validate(input, stack);
+                if (result < 0)
+                    Console.WriteLine("Incorrect amount" + Environment.NewLine);
+                else
+                {
+                    Console.WriteLine("Result: ");
+                    while (stack.Count > 0)
+                        Console.Write(stack.Pop() + " ");
+                    Console.WriteLine(Environment.NewLine);
+                }
+                Console.WriteLine("For exit press Escape or other for continue." + Environment.NewLine);
+                key = Console.ReadKey();
+            } while (key.Key != ConsoleKey.Escape);
         }
     }
 }
