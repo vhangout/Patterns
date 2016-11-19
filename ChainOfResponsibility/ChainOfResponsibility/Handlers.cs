@@ -8,7 +8,7 @@ namespace ChainOfResponsibility
 {
     interface ICurrencyHandler
     {
-        int validate(Money money, Stack<string> stack, int position);
+        int validate(Money money, Stack<string> stack);
     }
 
     class TypeHandler : ICurrencyHandler
@@ -27,13 +27,13 @@ namespace ChainOfResponsibility
             }
             var amount = -1;
             try {amount = int.Parse(input);} catch {}
-            return this.validate(new Money(type, amount), stack, -1);
+            return this.validate(new Money(type, amount), stack);
         }
 
-        public int validate(Money money, Stack<string> stack, int position)
+        public int validate(Money money, Stack<string> stack)
         {
             stack.Push(money.type.ToString("G"));
-            return CurrencyFactory.next(money, stack, ++position);
+            return CurrencyFactory.next(money, stack);
         }
     }
 
@@ -46,17 +46,17 @@ namespace ChainOfResponsibility
             Amount = amount;
         }
 
-        public int validate(Money money, Stack<string> stack, int position)
+        public int validate(Money money, Stack<string> stack)
         {
             var count = money.amount / Amount;
             stack.Push(count + "x" + Amount);
-            return CurrencyFactory.next(new Money(money.type, money.amount - count * Amount), stack, ++position);
+            return CurrencyFactory.next(new Money(money.type, money.amount - count * Amount), stack);
         }
     }
 
     class InvalidHandler : ICurrencyHandler
     {
-        public int validate(Money money, Stack<string> stack, int position)
+        public int validate(Money money, Stack<string> stack)
         {
             return -1;
         }
