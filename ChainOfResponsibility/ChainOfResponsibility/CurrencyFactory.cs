@@ -39,12 +39,11 @@ namespace ChainOfResponsibility
 
         public static int next(Money money, Stack<string> stack)
         {
-            if (money.amount == 0)
-                return new FinalHandler().validate(money, stack);
-
             var amounts = CurrencyType.Invalid.Equals(money.type) ? null : config[money.type];
-
-            if (amounts == null || money.amount < 0 || amounts.All(a => a > money.amount))
+            
+            if (money.amount == 0 && stack.Count > 1)
+                return new FinalHandler().validate(money, stack);
+            else if (amounts == null || money.amount < 0 || amounts.All(a => a > money.amount))
                 return new InvalidHandler().validate(money, stack);
             else
                 return amountHandlers[amounts.Where(a => a <= money.amount).Max()].validate(money, stack);
