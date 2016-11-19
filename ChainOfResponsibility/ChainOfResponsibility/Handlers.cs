@@ -61,4 +61,12 @@ namespace ChainOfResponsibility
             return -1;
         }
     }
+
+    class FinalHandler : ICurrencyHandler
+    {
+        public int validate(Money money, Stack<string> stack)
+        {
+            return 0;
+        }
+    }
 }

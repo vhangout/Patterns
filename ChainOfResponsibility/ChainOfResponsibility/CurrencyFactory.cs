@@ -46,7 +46,6 @@ namespace ChainOfResponsibility
         };
 
         public static TypeHandler FirstHandler = new TypeHandler();
-        private static ICurrencyHandler finalHandler = new InvalidHandler();
         private static Dictionary<int, ICurrencyHandler> amountHandlers = new Dictionary<int, ICurrencyHandler>();
 
         static CurrencyFactory()
@@ -60,12 +59,12 @@ namespace ChainOfResponsibility
         public static int next(Money money, Stack<string> stack)
         {
             if (money.amount == 0)
-                return 0;
+                return new FinalHandler().validate(money, stack);
 
             var amounts = CurrencyType.Invalid.Equals(money.type) ? null : config[money.type];
 
             if (amounts == null || money.amount < 0 || amounts.All(a => a > money.amount))
-                return finalHandler.validate(money, stack);
+                return new InvalidHandler().validate(money, stack);
             else
                 return amountHandlers[amounts.Where(a => a <= money.amount).Max()].validate(money, stack);
         }
