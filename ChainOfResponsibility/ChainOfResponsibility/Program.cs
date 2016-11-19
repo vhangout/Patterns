@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ChainOfResponsibility
 {
     class Program
     {
         static void Main(string[] args)
-        {
+        {            
             foreach (CurrencyType type in Enum.GetValues(typeof(CurrencyType)))
             {
                 if (type > CurrencyType.Invalid)
@@ -28,7 +29,7 @@ namespace ChainOfResponsibility
                 stack.Clear();
                 Console.Write(">");
                 var input = Console.ReadLine();
-                var result = CurrencyFactory.FirstHandler.validate(input, stack);
+                var result = new TypeHandler().validate(input, stack);
                 if (result < 0)
                     Console.WriteLine("Incorrect amount" + Environment.NewLine);
                 else
