@@ -8,16 +8,13 @@ namespace ChainOfResponsibility
     class Program
     {
         static void Main(string[] args)
-        {            
-            foreach (CurrencyType type in Enum.GetValues(typeof(CurrencyType)))
+        {
+            foreach (CurrencyType type in CurrencyFactory.config.Keys)
             {
-                if (type > CurrencyType.Invalid)
+                Console.Write(type + ": ");
+                foreach(var amount in CurrencyFactory.config[type])
                 {
-                    Console.Write(type + ": ");
-                    foreach(var amount in CurrencyFactory.config[type])
-                    {
-                        Console.Write(String.Format("{0,5}", amount) + " ");
-                    }
+                    Console.Write(String.Format("{0,5}", amount) + " ");
                 }
                 Console.WriteLine();
             }
