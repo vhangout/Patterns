@@ -33,7 +33,7 @@ namespace ChainOfResponsibility
         public int validate(Money money, Stack<string> stack)
         {
             stack.Push(money.type.ToString("G"));
-            return CurrencyFactory.next(money, stack);
+            return CurrencyFactory.next(money, stack).validate(money, stack);
         }
     }
 
@@ -49,8 +49,9 @@ namespace ChainOfResponsibility
         public int validate(Money money, Stack<string> stack)
         {
             var count = money.amount / Amount;
+            money.amount -= count * Amount;
             stack.Push(count + "x" + Amount);
-            return CurrencyFactory.next(new Money(money.type, money.amount - count * Amount), stack);
+            return CurrencyFactory.next(money, stack).validate(money, stack);
         }
     }
 

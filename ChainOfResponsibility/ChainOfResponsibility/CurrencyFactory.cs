@@ -37,16 +37,16 @@ namespace ChainOfResponsibility
             .Distinct().Select(x => new DenominationHandler(x))
             .ToDictionary(x => x.Amount);
 
-        public static int next(Money money, Stack<string> stack)
+        public static ICurrencyHandler next(Money money, Stack<string> stack)
         {
             var amounts = CurrencyType.Invalid.Equals(money.type) ? null : config[money.type];
             
             if (money.amount == 0 && stack.Count > 1)
-                return new FinalHandler().validate(money, stack);
+                return new FinalHandler();
             else if (amounts == null || money.amount < 0 || amounts.All(a => a > money.amount))
-                return new InvalidHandler().validate(money, stack);
+                return new InvalidHandler();
             else
-                return amountHandlers[amounts.Where(a => a <= money.amount).Max()].validate(money, stack);
+                return amountHandlers[amounts.Where(a => a <= money.amount).Max()];
         }
     }
 }
