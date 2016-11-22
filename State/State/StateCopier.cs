@@ -17,7 +17,7 @@ namespace State
             Console.WriteLine("*  Копировальная машина  *");
             Console.WriteLine("* Цена одной копии: " + Copier.priceCopy + "р. *");
             Console.WriteLine("**************************");
-            return context["GiveCashState"];
+            return context["giveCash"];
         }
     }
 
@@ -29,7 +29,7 @@ namespace State
             Console.Write("Внесите деньги:");
             int money = int.Parse(Console.ReadLine());
             context.Cash += money;
-            return context["CheckCashState"];
+            return context["checkCash"];
         }
     }
 
@@ -40,12 +40,12 @@ namespace State
             if (context.Cash < Copier.priceCopy)
             {
                 Console.WriteLine("Недостаточная сумма.");
-                return context["GiveCashState"];
+                return context["giveCash"];
             }
             else
             {
                 Console.WriteLine("Сумма достаточная...");
-                return context["SelectSourceState"];
+                return context["selectSource"];
             }
 
         }
@@ -55,14 +55,15 @@ namespace State
     {
         public ICopierState Handle(Copier context)
         {
+            Console.WriteLine("Выберите источник: ");
             var source = Menu.Run(new string[] { "Бумага", "Флеш накопитель", "Карта памяти" });
             if (source == 0)
             {
                 context.Document = null;
-                return context["MakeCopyState"];
+                return context["makeCopy"];
             }
             else
-                return context["SelectDocumentState"];
+                return context["selectDocument"];
         }
     }
 
@@ -77,7 +78,7 @@ namespace State
                 filename = Console.ReadLine();
             }
             context.Document = filename;
-            return context["MakeCopyState"];
+            return context["makeCopy"];
         }
     }
 
@@ -91,7 +92,7 @@ namespace State
                 Console.WriteLine("Печатается файл: " + context.Document);
             context.Cash -= Copier.priceCopy;
             Console.WriteLine("Заберите документ.");
-            return context["NeedRepeatState"];
+            return context["needRepeat"];
         }
     }
 
@@ -100,11 +101,12 @@ namespace State
         public ICopierState Handle(Copier context)
         {
             Console.WriteLine(String.Format("Остаток: {0} р.", context.Cash));
+            Console.WriteLine("Завершить работу?");
             var result = Menu.Run(new string[] { "Да", "Нет" });
             if (result == 0)
-                return context["CheckCashState"];
+                return context["retrieveCash"];
             else
-                return context["RetrieveCashState"];
+                return context["checkCash"];
         }
     }
 
@@ -114,7 +116,8 @@ namespace State
         {
             Console.WriteLine(String.Format("Заберите сдачу {0} р.", context.Cash));
             context.Cash = 0;
-            return context["HelloState"];
+            context.Document = null;
+            return context["hello"];
         }
     }
 
@@ -126,7 +129,7 @@ namespace State
             while (item >= items.Length || item < 0)
             {
                 for(int i = 0; i < items.Length; i++)
-                    Console.WriteLine((i + 1) + " " + items[i]);            
+                    Console.WriteLine("  " + (i + 1) + " " + items[i]);            
                 Console.Write(">");
                 item = int.Parse(Console.ReadLine()) - 1;
             }
