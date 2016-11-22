@@ -126,7 +126,7 @@ namespace State
         public static int Run(string[] items)
         {
             var item = 100;
-            while (item >= items.Length || item < 0)
+            while (item >= items.Length || item < 1)
             {
                 for(int i = 0; i < items.Length; i++)
                     Console.WriteLine("  " + (i + 1) + " " + items[i]);            
