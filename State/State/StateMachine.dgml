@@ -8,18 +8,20 @@
     <Node Id="SelectSource" Bounds="9.40958675244019E-06,12.1511912852188,116.933333333333,25.96" Label="Выбор источника" />
     <Node Id="ВернутьСдачу" Bounds="35.4721253712971,292.618357951886,98,25.96" Label="Вернуть сдачу" UseManualLocation="True" />
     <Node Id="ЕщеКопию?" Bounds="37.8575086418788,235.991591285219,87.5533333333333,25.96" Label="Еще копию?" UseManualLocation="True" />
+    <Node Id="Приветствие" Bounds="17.2240262288919,-246.890157412361,90.21,25.96" UseManualLocation="True" />
   </Nodes>
   <Links>
-    <Link Source="CheckMoneyForCopy" Target="GiveCash" Bounds="71.4488220214844,-130.274032592773,12.1747360229492,86.4651222229004" Label="Денег мало" LabelBounds="80.9160610127808,-100.636887989577,63.5666666666667,15.96" />
+    <Link Source="CheckMoneyForCopy" Target="GiveCash" Bounds="71.2854919433594,-130.264862060547,12.2457885742188,86.4559516906738" Label="Денег мало" LabelBounds="80.7125190649521,-99.7022102490776,63.5666666666667,15.96" />
     <Link Source="CheckMoneyForCopy" Target="SelectSource" Bounds="67.5461099467198,-17.8489087147812,9.27885918339284,21.723495447977" />
     <Link Source="CopyDocument" Target="ЕщеКопию?" Bounds="59.6295695059958,205.991491285219,11.2577433390096,21.9889844347451" />
-    <Link Source="GiveCash" Target="CheckMoneyForCopy" Bounds="64.0835113525391,-139.179428100586,12.2659301757813,86.453369140625" />
+    <Link Source="GiveCash" Target="CheckMoneyForCopy" Bounds="63.9908599853516,-139.179428100586,12.1959762573242,86.4623756408691" />
     <Link Source="SelectDocument" Target="CopyDocument" Bounds="66.1219789878572,150.031391285219,14.3205893655815,22.415744514223" />
     <Link Source="SelectSource" Target="CopyDocument" Bounds="-8.6082935333252,38.1111907958984,56.871561050415,138.460144042969" Label="Бумага" LabelBounds="2.4717319049011,108.077964183022,37.9,15.96" />
     <Link Source="SelectSource" Target="SelectDocument" Bounds="61.977060907331,38.1111912852188,20.8979627753135,77.272313400549" Label="USBFlash, SDCard" LabelBounds="73.1632273252372,55.8522894800662,93.7033333333333,15.96" />
-    <Link Source="ВернутьСдачу" Target="GiveCash" Bounds="-23.4520721435547,-132.604202270508,85.9443778991699,425.222549438477" Label="В начальное состояние" LabelBounds="-127.487219317278,199.38378836879,128.26,15.96" />
+    <Link Source="ВернутьСдачу" Target="Приветствие" Bounds="-21.8785572052002,-214.901901245117,84.3708629608154,507.520248413086" />
     <Link Source="ЕщеКопию?" Target="CheckMoneyForCopy" Bounds="97.2995071411133,-10.9906406402588,91.513053894043,246.982233047485" Label="Да" LabelBounds="175.577721230835,166.905175546061,14.4266666666667,15.96" />
     <Link Source="ЕщеКопию?" Target="ВернутьСдачу" Bounds="82.2846908506274,261.951591285219,1.08643352549346,21.6780480229142" Label="Нет" LabelBounds="86.8279107597625,264.710507418211,19.72,15.96" />
+    <Link Source="Приветствие" Target="GiveCash" Bounds="62.7877678092324,-220.930148620605,1.65389535170571,46.7963410946942" />
   </Links>
   <Properties>
     <Property Id="Bounds" DataType="System.Windows.Rect" />
