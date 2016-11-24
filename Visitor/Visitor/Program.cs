@@ -19,14 +19,18 @@ namespace Visitor
             IVisitor[] visitors = new IVisitor[] {
                 new AreaVisitor(),
                 new DrawVisitor(100, 100),
-                new ScaleVisitor(2)
+                new ScaleVisitor(2),
+                new DrawVisitor(0, 0)
             };
 
             
             foreach (var visitor in visitors)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("\n**********************");
+                var title = visitor.getTitle();
+                Console.WriteLine(new string('*', title.Length + 4));
+                Console.WriteLine("* " + title + " *");
+                Console.WriteLine(new string('*', title.Length + 4));
                 var color = 5;
                 foreach (var figure in figures)
                 {
@@ -36,7 +40,7 @@ namespace Visitor
                     color++;
                 }                
             }
-
+            Console.WriteLine("Press any key for close");
             Console.ReadKey();
         }
     }

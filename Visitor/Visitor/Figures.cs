@@ -46,7 +46,7 @@ namespace Visitor
 
         public override void Accept(IVisitor visitor)
         {
-            visitor.visit(this);
+            visitor.Visit(this);
         }
 
     }
@@ -89,7 +89,7 @@ namespace Visitor
 
             set
             {
-                _angle = value % 180;
+                _angle = Math.Abs(value % 180);
             }
         }
 
@@ -103,7 +103,7 @@ namespace Visitor
 
         public override void Accept(IVisitor visitor)
         {
-            visitor.visit(this);
+            visitor.Visit(this);
         }
     }
 
@@ -116,7 +116,7 @@ namespace Visitor
 
         public override void Accept(IVisitor visitor)
         {
-            visitor.visit(this);
+            visitor.Visit(this);
         }
     }
 }

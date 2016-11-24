@@ -15,25 +15,31 @@ namespace Visitor
 
     public interface IVisitor
     {
-        void visit(Rectangle figure);
-        void visit(Triangle figure);
-        void visit(Dot figure);
+        string getTitle();
+        void Visit(Rectangle figure);
+        void Visit(Triangle figure);
+        void Visit(Dot figure);
     }
 
     public class AreaVisitor : IVisitor
     {
-        public void visit(Rectangle figure)
+        public string getTitle()
+        {
+            return "Calculate Area";
+        }
+
+        public void Visit(Rectangle figure)
         {
             Console.WriteLine("Rectangle area: " + (figure.Width * figure.Height));
         }
 
-        public void visit(Triangle figure)
+        public void Visit(Triangle figure)
         {
             Console.WriteLine("Triangle area: {0:0.000}",
                 (0.5 * figure.Side1 * figure.Side2 * Math.Sin((Math.PI / 180) * figure.Angle)));
         }
 
-        public void visit(Dot figure)
+        public void Visit(Dot figure)
         {
             Console.WriteLine("Dot area is 0");
         }
@@ -48,6 +54,11 @@ namespace Visitor
         {
             X = x;
             Y = y;
+        }
+
+        public string getTitle()
+        {
+            return string.Format("Draw figure at {0}, {1}", X, Y);
         }
 
         private void Draw(List<Point> points)
@@ -68,7 +79,7 @@ namespace Visitor
             }
         }
 
-        public void visit(Rectangle figure)
+        public void Visit(Rectangle figure)
         {
             List<Point> points = new List<Point>();
             points.Add(new Point(X, Y));
@@ -79,7 +90,7 @@ namespace Visitor
             Draw(points);
         }
 
-        public void visit(Triangle figure)
+        public void Visit(Triangle figure)
         {
             List<Point> points = new List<Point>();
             double angle = Math.Sin((Math.PI / 180) * figure.Angle);
@@ -92,7 +103,7 @@ namespace Visitor
             Draw(points);
         }
 
-        public void visit(Dot figure)
+        public void Visit(Dot figure)
         {
             Console.WriteLine("Draw Dot:");
             Draw(new List<Point>() { new Point(X, Y) });
@@ -101,13 +112,28 @@ namespace Visitor
 
     public class ScaleVisitor : IVisitor
     {
-        public int Scale {get; set;}
+        private int _scale;
+        public int Scale {
+            get 
+            {
+                return _scale;
+            }
+            set
+            {
+                _scale = Math.Abs(value);
+            }
+        }
 
         public ScaleVisitor(int scale) {
             Scale = scale;
         }
 
-        public void visit(Rectangle figure)
+        public string getTitle()
+        {
+            return string.Format("Scale figure by {0}", Scale);
+        }
+
+        public void Visit(Rectangle figure)
         {
             Console.Write("Scale rectangle from {0}, {1} ", figure.Width, figure.Height);
             figure.Width *= Scale;
@@ -115,7 +141,7 @@ namespace Visitor
             Console.WriteLine("to {0}, {1} ", figure.Width, figure.Height);
         }
 
-        public void visit(Triangle figure)
+        public void Visit(Triangle figure)
         {
             Console.Write("Scale triangle sides from {0}, {1} ", figure.Side1, figure.Side2);
             figure.Side1 *= Scale;
@@ -123,7 +149,7 @@ namespace Visitor
             Console.WriteLine("to {0}, {1} ", figure.Side1, figure.Side2);
         }
 
-        public void visit(Dot figure)
+        public void Visit(Dot figure)
         {
             Console.WriteLine("Dot isn't scaled");
         }
